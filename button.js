@@ -14,6 +14,6 @@ function button(x, y, label, col, tcol) {
   stroke(tcol);
   textAlign(CENTER, CENTER);
   strokeWeight(3);
-  textSize(40);
+  textSize(50);
   text(this.label, this.x + width / 8, this.y + heights / 2 + 5);
 }
