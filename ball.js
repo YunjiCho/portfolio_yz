@@ -1,7 +1,16 @@
 class Ball {
-  constructor(x, y, w, h, label) {
-    this.body = Bodies.rectangle(x, y, w, h);
-    this.label = label; // 입력한 글자를 label 프로퍼티에 저장
+  constructor(x, y, w, h, label, col) {
+    var options = {
+      friction: 0.5,
+      restitution: 0.9,
+    };
+
+    this.body = Bodies.rectangle(x, y, w, h, options);
+
+    this.w = w; // Store width and height as properties
+    this.h = h;
+    this.label = label; // Store the provided label in the object
+    this.col = col;
     World.add(world, this.body);
   }
 
@@ -13,14 +22,15 @@ class Ball {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
-    fill(150);
-    rect(0, 0, this.w, this.h);
-    strokeWeight(10);
-    stroke(0);
-    fill(0);
+    fill(this.col); // Use this.col for filling
+    noStroke();
+    rect(0, 0, this.w, this.h, 100, 100, 100, 100);
+    strokeWeight(6);
+    stroke(255);
+    fill(255);
     textAlign(CENTER, CENTER);
-    textSize(130);
-    text(this.label, 0, 0); // label 프로퍼티의 글자를 출력
+    textSize(80); // Adjusted text size for visibility
+    text(this.label, 0, 0); // Display the stored label
     pop();
   }
 }
