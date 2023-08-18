@@ -13,7 +13,7 @@ function button(x, y, label, col, tcol) {
   fill(tcol); // 텍스트는 흰색으로 설정
   stroke(tcol);
   textAlign(CENTER, CENTER);
-  strokeWeight(4);
-  textSize(60);
+  strokeWeight(3);
+  textSize(40);
   text(this.label, this.x + width / 8, this.y + heights / 2 + 5);
 }
