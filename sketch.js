@@ -13,7 +13,7 @@ var balls1 = [];
 var balls2 = [];
 var balls3 = [];
 var balls4 = [];
-var ballSize = 110;
+var ballSize = 140;
 var grounds = [];
 var groundCount = 3;
 var groundWidth = 30;
@@ -136,7 +136,7 @@ function draw() {
   for (var i = 0; i < balls4.length; i++) {
     balls4[i].show();
   }
-  buttonbg();
+  //buttonbg();
   for (let i = 0; i < 4; i++) {
     let buttonX = (i * width) / 4;
     let buttonY = -5;
@@ -235,8 +235,5 @@ function handleButtonClick(buttonIndex) {
 
 function buttonbg() {
   fill(255);
-  rect(0, 0 - heights / 2, width / 4, heights);
-  rect(width / 4, 0 - heights / 2, width / 4, heights);
-  rect((width / 4) * 2, 0 - heights / 2, width / 4, heights);
-  rect((width / 4) * 3, 0 - heights / 2, width / 4, heights);
+  rect(0, 0 - heights / 2, width, heights);
 }
