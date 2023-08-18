@@ -136,7 +136,7 @@ function draw() {
   for (var i = 0; i < balls4.length; i++) {
     balls4[i].show();
   }
-  //buttonbg();
+  buttonbg();
   for (let i = 0; i < 4; i++) {
     let buttonX = (i * width) / 4;
     let buttonY = -5;
