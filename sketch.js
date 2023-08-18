@@ -61,7 +61,9 @@ function setup() {
     },
   };
 
-  land = Bodies.rectangle(width / 2, height + 50, width, 100, options);
+  const initialLandY = windowHeight + 50; // 여기서 50은 여백입니다.
+  land = Bodies.rectangle(width / 2, initialLandY, width, 100, options);
+
   leftGround = Bodies.rectangle(
     0,
     height - height / 2,
@@ -162,6 +164,17 @@ function draw() {
     let textColor = isClicked ? hovertextColors[i] : textColors[i];
     button(buttonX, buttonY + 5, buttonText, buttonColor, textColor);
   }
+  // 뷰포트 높이에 맞게 land의 y 위치 계산
+  const landY = windowHeight + 50;
+  Matter.Body.setPosition(land, { x: land.position.x, y: landY });
+
+  // land 그리기
+  push();
+  translate(land.position.x, land.position.y);
+  fill(0);
+  rectMode(CENTER);
+  rect(0, 0, width, 100);
+  pop();
 }
 
 function mousePressed() {
