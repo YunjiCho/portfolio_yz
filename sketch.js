@@ -107,10 +107,10 @@ function setup() {
     color(bg1 + 30, 100, 100),
   ];
   textColors = [
-    color(bg4 + 30, 100, 100),
-    color(bg3 + 30, 100, 100),
-    color(bg2 + 30, 100, 100),
-    color(bg1 + 30, 100, 100),
+    color(bg4 + 30, 0, 100),
+    color(bg3 + 30, 0, 100),
+    color(bg2 + 30, 0, 100),
+    color(bg1 + 30, 0, 100),
   ];
   hovertextColors = [
     color(bg1, 100, 100),
@@ -152,83 +152,87 @@ function draw() {
       buttonText = "UX";
     }
 
-    let isHovered =
+    let isClicked =
       mouseX > buttonX &&
       mouseX < buttonX + width / 4 &&
       mouseY > buttonY &&
       mouseY < buttonY + heights;
-    let buttonColor = isHovered ? hoverColors[i] : buttonColors[i];
-    let textColor = isHovered ? hovertextColors[i] : buttonColors[i];
+
+    let buttonColor = isClicked ? hoverColors[i] : buttonColors[i];
+    let textColor = isClicked ? hovertextColors[i] : textColors[i];
     button(buttonX, buttonY + 5, buttonText, buttonColor, textColor);
   }
 }
-function mousePressed() {
-  if (mouseY > 0 && mouseY < 100) {
-    let buttonIndex = -1;
 
-    if (mouseX > 0 && mouseX < width / 4) {
-      buttonIndex = 0;
-    } else if (mouseX > width / 4 && mouseX < width / 2) {
-      buttonIndex = 1;
-    } else if (mouseX > width / 2 && mouseX < (width / 4) * 3) {
-      buttonIndex = 2;
-    } else {
-      buttonIndex = 3;
-    }
+function mousePressed() {
+  for (let i = 0; i < 4; i++) {
+    let buttonX = (i * width) / 4;
+    let buttonY = -5;
+    let buttonWidth = width / 4;
+    let buttonHeight = heights;
 
     if (
-      buttonIndex >= 0 &&
-      wordsUsed[buttonIndex] < wordLists[buttonIndex].length
+      mouseX > buttonX &&
+      mouseX < buttonX + buttonWidth &&
+      mouseY > buttonY &&
+      mouseY < buttonY + buttonHeight
     ) {
-      currentWordList = wordLists[buttonIndex];
-      let wordCount = currentWordList.length;
-      let buttonColor;
-
-      if (buttonIndex === 0) {
-        buttonColor = color(bg1, 100, 100);
-      } else if (buttonIndex === 1) {
-        buttonColor = color(bg2, 100, 100);
-      } else if (buttonIndex === 2) {
-        buttonColor = color(bg3, 100, 100);
-      } else if (buttonIndex === 3) {
-        buttonColor = color(bg4, 100, 100);
-      }
-
-      let word = currentWordList[wordsUsed[buttonIndex]]; // 다음 사용되지 않은 워드
-
-      if (word) {
-        let ball = new Ball(
-          random((buttonIndex * width) / 4, ((buttonIndex + 1) * width) / 4),
-          0,
-          ballSize,
-          ballSize,
-          word,
-          buttonColor
-        );
-
-        if (wordCount > 0) {
-          if (buttonIndex === 0) {
-            balls1.push(ball);
-          } else if (buttonIndex === 1) {
-            balls2.push(ball);
-          } else if (buttonIndex === 2) {
-            balls3.push(ball);
-          } else if (buttonIndex === 3) {
-            balls4.push(ball);
-          }
-        }
-
-        setTimeout(() => {
-          Matter.Sleeping.set(ball.body, true);
-        }, 10000);
-
-        Matter.Body.setVelocity(ball.body, { x: 0, y: 5 });
-
-        wordsUsed[buttonIndex]++; // 해당 버튼의 사용된 워드 개수 증가
-      }
+      handleButtonClick(i);
     }
   }
 }
+
+function handleButtonClick(buttonIndex) {
+  if (wordsUsed[buttonIndex] < wordLists[buttonIndex].length) {
+    currentWordList = wordLists[buttonIndex];
+    let wordCount = currentWordList.length;
+    let buttonColor;
+
+    if (buttonIndex === 0) {
+      buttonColor = color(bg1, 100, 100);
+    } else if (buttonIndex === 1) {
+      buttonColor = color(bg2, 100, 100);
+    } else if (buttonIndex === 2) {
+      buttonColor = color(bg3, 100, 100);
+    } else if (buttonIndex === 3) {
+      buttonColor = color(bg4, 100, 100);
+    }
+
+    let word = currentWordList[wordsUsed[buttonIndex]]; // 다음 사용되지 않은 워드
+
+    if (word) {
+      let ball = new Ball(
+        random((buttonIndex * width) / 4, ((buttonIndex + 1) * width) / 4),
+        0,
+        ballSize,
+        ballSize,
+        word,
+        buttonColor
+      );
+
+      if (wordCount > 0) {
+        if (buttonIndex === 0) {
+          balls1.push(ball);
+        } else if (buttonIndex === 1) {
+          balls2.push(ball);
+        } else if (buttonIndex === 2) {
+          balls3.push(ball);
+        } else if (buttonIndex === 3) {
+          balls4.push(ball);
+        }
+      }
+
+      setTimeout(() => {
+        Matter.Sleeping.set(ball.body, true);
+      }, 10000);
+
+      Matter.Body.setVelocity(ball.body, { x: 0, y: 5 });
+
+      wordsUsed[buttonIndex]++; // 해당 버튼의 사용된 워드 개수 증가
+    }
+  }
+}
+
 function buttonbg() {
   fill(255);
   rect(0, 0 - heights / 2, width / 4, heights);
