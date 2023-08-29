@@ -142,7 +142,7 @@ function draw() {
   buttonbg();
   for (let i = 0; i < 4; i++) {
     let buttonX = (i * width) / 4;
-    let buttonY = -5;
+    let buttonY = 5;
     let buttonText = "";
 
     if (i === 0) {
