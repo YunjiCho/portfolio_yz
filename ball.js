@@ -22,12 +22,12 @@ class Ball {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
-    fill(this.col); // Use this.col for filling
+    fill(0, 0, 89); // Use this.col for filling
     noStroke();
     rect(0, 0, this.w, this.h, 100, 100, 100, 100);
     strokeWeight(6);
-    stroke(255);
-    fill(255);
+    stroke(this.col);
+    fill(this.col);
     textAlign(CENTER, CENTER);
     textSize(80); // Adjusted text size for visibility
     text(this.label, 0, 0); // Display the stored label

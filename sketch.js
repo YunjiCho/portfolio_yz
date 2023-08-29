@@ -94,27 +94,28 @@ function setup() {
   }
 
   currentWordList = wordLists[0]; // 초기에 첫 번째 리스트를 선택
-  colorMode(HSB, 360, 100, 100);
+  colorMode(HSB, 100, 100, 100);
   buttonColors = [
+    color(0, 0, 89),
+    color(0, 0, 89),
+    color(0, 0, 89),
+    color(0, 0, 89),
+  ];
+  hovertextColors = [
+    color(0, 0, 89),
+    color(0, 0, 89),
+    color(0, 0, 89),
+    color(0, 0, 89),
+  ];
+
+  colorMode(HSB, 360, 100, 100);
+  textColors = [
     color(bg1, 100, 100),
     color(bg2, 100, 100),
     color(bg3, 100, 100),
     color(bg4, 100, 100),
   ];
-
   hoverColors = [
-    color(bg4 + 30, 100, 100),
-    color(bg3 + 30, 100, 100),
-    color(bg2 + 30, 100, 100),
-    color(bg1 + 30, 100, 100),
-  ];
-  textColors = [
-    color(bg4 + 30, 0, 100),
-    color(bg3 + 30, 0, 100),
-    color(bg2 + 30, 0, 100),
-    color(bg1 + 30, 0, 100),
-  ];
-  hovertextColors = [
     color(bg1, 100, 100),
     color(bg2, 100, 100),
     color(bg3, 100, 100),
@@ -173,7 +174,7 @@ function draw() {
   translate(land.position.x, land.position.y);
   fill(0);
   rectMode(CENTER);
-  rect(0, 0, width, 100);
+  rect(0, 0, width, 90);
   pop();
 }
 
@@ -248,5 +249,5 @@ function handleButtonClick(buttonIndex) {
 
 function buttonbg() {
   fill(255);
-  rect(0, 0 - heights / 2, width, heights);
+  rect(0, 0 - heights / 2, width + 100, heights);
 }
