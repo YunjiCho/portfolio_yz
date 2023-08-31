@@ -23,9 +23,17 @@ var bg2 = 38;
 var bg3 = 240;
 var bg4 = 96;
 let currentWordIndex = 0;
+const linkLists = [
+  ["https://link1.com", "https://link2.com", "https://link3.com"],
+  ["https://link1.com", "https://link2.com", "https://link3.com"],
+  ["https://link1.com", "https://link2.com", "https://link3.com"],
+  ["https://link1.com", "https://link2.com", "https://link3.com"],
+  // 각 버튼별로 링크를 추가합니다.
+];
+
 const wordLists = [
   ["조", "윤", "지"],
-  ["마", "바", "사", "아"],
+  ["과", "새"],
   ["자", "차", "카", "타"],
   ["파", "하", "가", "나"],
 ];
@@ -110,16 +118,16 @@ function setup() {
 
   colorMode(HSB, 360, 100, 100);
   textColors = [
-    color(bg1, 100, 100),
-    color(bg2, 100, 100),
-    color(bg3, 100, 100),
-    color(bg4, 100, 100),
+    color(205, 74, 96),
+    color(29, 59, 54),
+    color(337, 51, 100),
+    color(153, 81, 70),
   ];
   hoverColors = [
-    color(bg1, 100, 100),
-    color(bg2, 100, 100),
-    color(bg3, 100, 100),
-    color(bg4, 100, 100),
+    color(205, 74, 96),
+    color(29, 59, 54),
+    color(337, 51, 100),
+    color(153, 81, 70),
   ];
 }
 
@@ -146,11 +154,11 @@ function draw() {
     let buttonText = "";
 
     if (i === 0) {
-      buttonText = "조윤지";
+      buttonText = "Interaction";
     } else if (i === 1) {
       buttonText = "Graphic";
     } else if (i === 2) {
-      buttonText = "Interaction";
+      buttonText = "Motion";
     } else if (i === 3) {
       buttonText = "UX";
     }
@@ -194,25 +202,36 @@ function mousePressed() {
       handleButtonClick(i);
     }
   }
+  // Check if any ball is clicked
+  for (let i = 0; i < balls1.length; i++) {
+    if (balls1[i].isClicked()) {
+      window.location.href = balls1[i].link;
+    }
+  }
+  for (let i = 0; i < balls2.length; i++) {
+    if (balls2[i].isClicked()) {
+      window.location.href = balls2[i].link;
+    }
+  }
+  for (let i = 0; i < balls3.length; i++) {
+    if (balls3[i].isClicked()) {
+      window.location.href = balls3[i].link;
+    }
+  }
+  for (let i = 0; i < balls4.length; i++) {
+    if (balls4[i].isClicked()) {
+      window.location.href = balls4[i].link;
+    }
+  }
 }
 
 function handleButtonClick(buttonIndex) {
   if (wordsUsed[buttonIndex] < wordLists[buttonIndex].length) {
     currentWordList = wordLists[buttonIndex];
     let wordCount = currentWordList.length;
-    let buttonColor;
+    let buttonColor = buttonColors[buttonIndex]; // Use buttonColors array here
 
-    if (buttonIndex === 0) {
-      buttonColor = color(bg1, 100, 100);
-    } else if (buttonIndex === 1) {
-      buttonColor = color(bg2, 100, 100);
-    } else if (buttonIndex === 2) {
-      buttonColor = color(bg3, 100, 100);
-    } else if (buttonIndex === 3) {
-      buttonColor = color(bg4, 100, 100);
-    }
-
-    let word = currentWordList[wordsUsed[buttonIndex]]; // 다음 사용되지 않은 워드
+    let word = currentWordList[wordsUsed[buttonIndex]];
 
     if (word) {
       let ball = new Ball(
@@ -221,7 +240,9 @@ function handleButtonClick(buttonIndex) {
         ballSize,
         ballSize,
         word,
-        buttonColor
+        buttonColor,
+        linkLists[buttonIndex][wordsUsed[buttonIndex]], // Provide the link
+        textColors[buttonIndex]
       );
 
       if (wordCount > 0) {
@@ -249,5 +270,5 @@ function handleButtonClick(buttonIndex) {
 
 function buttonbg() {
   fill(255);
-  rect(0, 0 - heights / 2, width + 100, heights);
+  rect(0, 0 - heights / 3, width + 100, heights);
 }
