@@ -1,0 +1,122 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 0;
+  background-color: #e8e8e8;
+}
+
+.buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+.buttons div {
+  display: inline-block; /* 버튼을 옆으로 배치 */
+  margin: 5px; /* 버튼 간격 조정 */
+}
+
+.buttons a {
+  display: inline-block;
+  margin: auto;
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #3fa9f5;
+  padding: 16px 50px;
+  border-radius: 100px;
+  font-weight: bold;
+}
+
+.buttons a:hover {
+  background-color: #3fa9f5;
+  color: #ffffff;
+}
+.work-detail {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #ffffff;
+  overflow: hidden;
+  border-radius: 300px;
+}
+.work-details-content {
+  padding: 10px;
+  padding-top: 100px;
+  margin: auto;
+  width: 70%;
+  color: #3fa9f5;
+  background-color: #ffffff; /* 배경색 추가 */
+  line-height: 180%;
+}
+
+.work-details-image {
+  display: flex;
+  margin: 10;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  max-width: 80%;
+  max-height: auto;
+  margin: 0 auto; /* 수정된 부분 */
+  overflow: hidden;
+  padding-bottom: 0px;
+}
+h1 {
+  font-size: 48px;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+a {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  background-color: #3fa9f5;
+  padding: 10px;
+  border-radius: 15px;
+}
+p {
+  padding-top: 2%;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: justify;
+}
+
+.date {
+  padding-top: 2%;
+  font-weight: 600;
+  text-align: right;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+@media (max-width: 768px) {
+  .work-detail {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-details-image {
+    max-height: none;
+  }
+  .work-details-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    max-width: 100%;
+    max-height: auto;
+    overflow: hidden;
+  }
+  .work-details-content {
+    margin: auto;
+    width: 90%;
+  }
+  h1 {
+    font-size: 58px;
+    line-height: 120%;
+  }
+  p {
+    font-size: 16px;
+  }
+}

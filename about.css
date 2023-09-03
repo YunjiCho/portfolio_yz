@@ -1,0 +1,141 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 0;
+  background: rgb(232, 164, 32);
+  background: linear-gradient(
+    90deg,
+    rgba(232, 164, 32, 1) 0%,
+    rgba(232, 164, 32, 1) 46%,
+    rgba(58, 172, 105, 1) 53%,
+    rgba(58, 172, 105, 1) 100%
+  );
+}
+
+.buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+.buttons div {
+  display: inline-block; /* 버튼을 옆으로 배치 */
+  margin: 5px; /* 버튼 간격 조정 */
+}
+
+.buttons a {
+  display: inline-block;
+  margin: auto;
+  text-decoration: none;
+  background-color: #ffffff;
+  color: rgb(88, 88, 88);
+  padding: 16px 50px;
+  border-radius: 100px;
+  font-weight: bold;
+}
+
+.main :hover {
+  background: rgb(232, 164, 32);
+  color: #e4e4e4;
+}
+.list :hover {
+  background: rgba(58, 172, 105, 1);
+  color: #e4e4e4;
+}
+.work-detail {
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #ffffff;
+  overflow: hidden;
+  border-radius: 500px;
+}
+.work-details-content {
+  padding: 10px;
+  padding-top: 80px;
+  padding-bottom: 100px;
+  margin: auto;
+  width: 70%;
+  height: auto;
+  color: rgb(88, 88, 88);
+  background-color: #ffffff; /* 배경색 추가 */
+  line-height: 190%;
+  white-space: normal;
+}
+
+.work-details-image {
+  display: flex;
+  margin: 10;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  max-width: 80%;
+  max-height: auto;
+  margin: 0 auto; /* 수정된 부분 */
+  overflow: hidden;
+}
+h1 {
+  font-size: 48px;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+p {
+  padding-top: 4%;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: justify;
+}
+a {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  background-color: rgb(232, 164, 32);
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.a:hover {
+  background-color: #ffffff;
+  color: rgb(232, 164, 32);
+}
+.date {
+  padding-top: 2%;
+  font-weight: 600;
+  text-align: right;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+@media (max-width: 768px) {
+  .work-detail {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-details-image {
+    max-height: none;
+  }
+  .work-details-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    max-width: 100%;
+    max-height: auto;
+    line-height: 120%;
+    overflow: hidden;
+  }
+  .work-details-content {
+    margin: auto;
+    width: 90%;
+  }
+  h1 {
+    font-size: 58px;
+  }
+  p {
+    font-size: 16px;
+    padding-top: 10%;
+  }
+}
