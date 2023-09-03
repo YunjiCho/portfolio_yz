@@ -1,5 +1,5 @@
 class Ball {
-  constructor(x, y, w, h, label, col, link, textColor) {
+  constructor(x, y, w, h, label, col, htmlPath, textColor) {
     var options = {
       friction: 0.5,
       restitution: 0.9,
@@ -11,8 +11,9 @@ class Ball {
     this.h = h;
     this.label = label; // Store the provided label in the object
     this.col = col;
-    this.link = link; // Store the provided link in the object
+    this.htmlPath = htmlPath;
     this.textColor = textColor;
+    this.clickable = false;
     World.add(world, this.body);
   }
 
@@ -46,5 +47,8 @@ class Ball {
       mouseY > this.body.position.y - this.h / 2 &&
       mouseY < this.body.position.y + this.h / 2
     );
+  }
+  isClickable() {
+    return this.clickable;
   }
 }

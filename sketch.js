@@ -23,19 +23,20 @@ var bg2 = 38;
 var bg3 = 240;
 var bg4 = 96;
 let currentWordIndex = 0;
+
 const linkLists = [
-  ["https://link1.com", "https://link2.com", "https://link3.com"],
-  ["https://link1.com", "https://link2.com", "https://link3.com"],
-  ["https://link1.com", "https://link2.com", "https://link3.com"],
-  ["https://link1.com", "https://link2.com", "https://link3.com"],
+  ["i1.html", "i2.html", "i3.html", "i4.html", "i5.html"],
+  ["g1.html"],
+  ["about.html"],
+  ["i1.html", "i2.html", "i3.html", "i4.html", "i5.html"],
   // 각 버튼별로 링크를 추가합니다.
 ];
 
 const wordLists = [
-  ["조", "윤", "지"],
-  ["과", "새"],
-  ["자", "차", "카", "타"],
-  ["파", "하", "가", "나"],
+  ["I", "I", "2", "랜", "커"],
+  ["과"],
+  ["조"],
+  ["I", "I", "2", "랜", "커"],
 ];
 let wordsUsed = [0, 0, 0, 0];
 let currentWordList = [];
@@ -184,6 +185,7 @@ function draw() {
   rectMode(CENTER);
   rect(0, 0, width, 90);
   pop();
+  updateBallClickable();
 }
 
 function mousePressed() {
@@ -202,29 +204,62 @@ function mousePressed() {
       handleButtonClick(i);
     }
   }
-  // Check if any ball is clicked
+
   for (let i = 0; i < balls1.length; i++) {
-    if (balls1[i].isClicked()) {
-      window.location.href = balls1[i].link;
+    // 볼의 클릭 가능 여부를 체크하고 클릭 가능할 때만 링크를 엽니다.
+    if (balls1[i].isClickable() && balls1[i].isClicked()) {
+      openHtmlFile(balls1[i].htmlPath);
     }
   }
   for (let i = 0; i < balls2.length; i++) {
-    if (balls2[i].isClicked()) {
-      window.location.href = balls2[i].link;
+    if (balls2[i].isClickable() && balls2[i].isClicked()) {
+      openHtmlFile(balls2[i].htmlPath);
     }
   }
   for (let i = 0; i < balls3.length; i++) {
-    if (balls3[i].isClicked()) {
-      window.location.href = balls3[i].link;
+    if (balls3[i].isClickable() && balls3[i].isClicked()) {
+      openHtmlFile(balls3[i].htmlPath);
     }
   }
   for (let i = 0; i < balls4.length; i++) {
-    if (balls4[i].isClicked()) {
-      window.location.href = balls4[i].link;
+    if (balls4[i].isClickable() && balls4[i].isClicked()) {
+      openHtmlFile(balls4[i].htmlPath);
     }
   }
 }
-
+function openHtmlFile(htmlPath) {
+  if (htmlPath) {
+    window.location.href = htmlPath;
+  }
+}
+function updateBallClickable() {
+  for (let i = 0; i < balls1.length; i++) {
+    let ball = balls1[i];
+    // 볼이 버튼의 영역을 벗어났을 때 클릭 가능하도록 플래그를 설정합니다.
+    if (ball.body.position.y > heights) {
+      ball.clickable = true;
+    }
+  }
+  for (let i = 0; i < balls2.length; i++) {
+    let ball = balls2[i];
+    if (ball.body.position.y > heights) {
+      ball.clickable = true;
+    }
+  }
+  for (let i = 0; i < balls3.length; i++) {
+    let ball = balls3[i];
+    if (ball.body.position.y > heights) {
+      ball.clickable = true;
+    }
+  }
+  for (let i = 0; i < balls4.length; i++) {
+    let ball = balls4[i];
+    if (ball.body.position.y > heights) {
+      ball.clickable = true;
+    }
+  }
+  // 나머지 볼들에 대한 처리도 동일하게 수행
+}
 function handleButtonClick(buttonIndex) {
   if (wordsUsed[buttonIndex] < wordLists[buttonIndex].length) {
     currentWordList = wordLists[buttonIndex];
