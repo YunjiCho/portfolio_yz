@@ -182,7 +182,7 @@ function draw() {
   // land 그리기
   push();
   translate(land.position.x, land.position.y);
-  fill(0);
+  fill(255);
   rectMode(CENTER);
   rect(0, 0, width, 90);
   pop();

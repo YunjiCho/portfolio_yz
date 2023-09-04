@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   padding: 0;
-  background: #e8e8e8;
+  background: #e3e3e3;
 }
 
 .buttons {
@@ -71,7 +71,7 @@ h1 {
 
 p {
   padding-top: 2%;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
   text-align: justify;
 }
