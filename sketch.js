@@ -298,7 +298,7 @@ function handleButtonClick(buttonIndex) {
         Matter.Sleeping.set(ball.body, true);
       }, 10000);
 
-      Matter.Body.setVelocity(ball.body, { x: 0, y: 5 });
+      Matter.Body.setVelocity(ball.body, { x: 0, y: 10 });
 
       wordsUsed[buttonIndex]++; // 해당 버튼의 사용된 워드 개수 증가
     }
