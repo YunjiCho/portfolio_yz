@@ -1,14 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   padding: 0;
-  background: rgb(232, 164, 32);
-  background: linear-gradient(
-    90deg,
-    rgba(232, 164, 32, 1) 0%,
-    rgba(232, 164, 32, 1) 46%,
-    rgba(58, 172, 105, 1) 53%,
-    rgba(58, 172, 105, 1) 100%
-  );
+  background: #e8e8e8;
 }
 
 .buttons {
@@ -25,37 +18,37 @@ body {
   margin: auto;
   text-decoration: none;
   background-color: #ffffff;
-  color: rgb(88, 88, 88);
+  color: #ff7bac;
   padding: 16px 50px;
   border-radius: 100px;
   font-weight: bold;
 }
 
 .main :hover {
-  background: rgb(232, 164, 32);
-  color: #e4e4e4;
+  background: #ff7bac;
+  color: #ffffff;
 }
 .list :hover {
-  background: rgba(58, 172, 105, 1);
-  color: #e4e4e4;
+  background: #ff7bac;
+  color: #ffffff;
 }
 .work-detail {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 20px auto;
   background-color: #ffffff;
   overflow: hidden;
-  border-radius: 500px;
+  border-radius: 300px;
 }
 .work-details-content {
   padding: 10px;
-  padding-top: 80px;
+  padding-top: 100px;
   padding-bottom: 100px;
   margin: auto;
   width: 70%;
   height: auto;
-  color: rgb(88, 88, 88);
+  color: #ff7bac;
   background-color: #ffffff; /* 배경색 추가 */
-  line-height: 190%;
+  line-height: 180%;
   white-space: normal;
 }
 
@@ -77,24 +70,24 @@ h1 {
 }
 
 p {
-  padding-top: 4%;
-  font-weight: 500;
+  padding-top: 2%;
+  font-weight: 600;
   font-size: 20px;
   text-align: justify;
 }
 a {
   color: rgb(255, 255, 255);
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
-  background-color: rgb(232, 164, 32);
-  padding: 10px;
+  background-color: #ff7bac;
+  padding: 8px 16px 8px 16px;
   border-radius: 15px;
 }
 
 .a:hover {
   background-color: #ffffff;
-  color: rgb(232, 164, 32);
+  color: #ff7bac;
 }
 .date {
   padding-top: 2%;
@@ -121,10 +114,9 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: #ffffff;
     max-width: 100%;
     max-height: auto;
-    line-height: 120%;
     overflow: hidden;
   }
   .work-details-content {
@@ -132,10 +124,10 @@ img {
     width: 90%;
   }
   h1 {
-    font-size: 58px;
+    font-size: 40px;
+    line-height: 120%;
   }
   p {
     font-size: 16px;
-    padding-top: 10%;
   }
 }

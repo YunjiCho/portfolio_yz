@@ -145,11 +145,11 @@ function draw() {
   for (var i = 0; i < balls3.length; i++) {
     balls3[i].show();
   }
-  for (var i = 0; i < balls4.length; i++) {
-    balls4[i].show();
-  }
+  // for (var i = 0; i < balls4.length; i++) {
+  //   balls4[i].show();
+  // }
   buttonbg();
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 3; i++) {
     let buttonX = (i * width) / 4;
     let buttonY = 5;
     let buttonText = "";
@@ -159,10 +159,11 @@ function draw() {
     } else if (i === 1) {
       buttonText = "Graphic";
     } else if (i === 2) {
-      buttonText = "Motion";
-    } else if (i === 3) {
-      buttonText = "UX";
+      buttonText = "CHO";
     }
+    // else if (i === 3) {
+    //   buttonText = "UX";
+    // }
 
     let isClicked =
       mouseX > buttonX &&
@@ -189,7 +190,7 @@ function draw() {
 }
 
 function mousePressed() {
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 3; i++) {
     let buttonX = (i * width) / 4;
     let buttonY = -5;
     let buttonWidth = width / 4;
@@ -221,11 +222,11 @@ function mousePressed() {
       openHtmlFile(balls3[i].htmlPath);
     }
   }
-  for (let i = 0; i < balls4.length; i++) {
-    if (balls4[i].isClickable() && balls4[i].isClicked()) {
-      openHtmlFile(balls4[i].htmlPath);
-    }
-  }
+  // for (let i = 0; i < balls4.length; i++) {
+  //   if (balls4[i].isClickable() && balls4[i].isClicked()) {
+  //     openHtmlFile(balls4[i].htmlPath);
+  //   }
+  // }
 }
 function openHtmlFile(htmlPath) {
   if (htmlPath) {
@@ -252,12 +253,12 @@ function updateBallClickable() {
       ball.clickable = true;
     }
   }
-  for (let i = 0; i < balls4.length; i++) {
-    let ball = balls4[i];
-    if (ball.body.position.y > heights) {
-      ball.clickable = true;
-    }
-  }
+  // for (let i = 0; i < balls4.length; i++) {
+  //   let ball = balls4[i];
+  //   if (ball.body.position.y > heights) {
+  //     ball.clickable = true;
+  //   }
+  // }
   // 나머지 볼들에 대한 처리도 동일하게 수행
 }
 function handleButtonClick(buttonIndex) {
@@ -287,9 +288,10 @@ function handleButtonClick(buttonIndex) {
           balls2.push(ball);
         } else if (buttonIndex === 2) {
           balls3.push(ball);
-        } else if (buttonIndex === 3) {
-          balls4.push(ball);
         }
+        // else if (buttonIndex === 3) {
+        //   balls4.push(ball);
+        // }
       }
 
       setTimeout(() => {
@@ -305,5 +307,6 @@ function handleButtonClick(buttonIndex) {
 
 function buttonbg() {
   fill(255);
+  noStroke();
   rect(0, 0 - heights / 3, width + 100, heights);
 }
