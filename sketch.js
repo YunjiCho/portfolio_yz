@@ -198,28 +198,45 @@ function mousePressed() {
     }
   }
 
+  // 공 클릭 처리
   for (let i = 0; i < balls1.length; i++) {
-    // 볼의 클릭 가능 여부를 체크하고 클릭 가능할 때만 링크를 엽니다.
-    if (balls1[i].isClickable() && balls1[i].isClicked()) {
-      openHtmlFile(balls1[i].htmlPath);
+    let ball = balls1[i];
+    if (
+      ball.isClickable() &&
+      ball.isClicked() &&
+      ball.body.position.y > heights
+    ) {
+      openHtmlFile(ball.htmlPath);
     }
   }
   for (let i = 0; i < balls2.length; i++) {
-    if (balls2[i].isClickable() && balls2[i].isClicked()) {
-      openHtmlFile(balls2[i].htmlPath);
+    let ball = balls2[i];
+    if (
+      ball.isClickable() &&
+      ball.isClicked() &&
+      ball.body.position.y > heights
+    ) {
+      openHtmlFile(ball.htmlPath);
     }
   }
   for (let i = 0; i < balls3.length; i++) {
-    if (balls3[i].isClickable() && balls3[i].isClicked()) {
-      openHtmlFile(balls3[i].htmlPath);
+    let ball = balls3[i];
+    if (
+      ball.isClickable() &&
+      ball.isClicked() &&
+      ball.body.position.y > heights
+    ) {
+      openHtmlFile(ball.htmlPath);
     }
   }
   // for (let i = 0; i < balls4.length; i++) {
-  //   if (balls4[i].isClickable() && balls4[i].isClicked()) {
-  //     openHtmlFile(balls4[i].htmlPath);
+  //   let ball = balls4[i];
+  //   if (ball.isClickable() && ball.isClicked() && ball.body.position.y > heights) {
+  //     openHtmlFile(ball.htmlPath);
   //   }
   // }
 }
+
 function openHtmlFile(htmlPath) {
   if (htmlPath) {
     window.location.href = htmlPath;
