@@ -71,6 +71,7 @@ function setup() {
   };
 
   const initialLandY = windowHeight + 50; // 여기서 50은 여백입니다.
+  noStroke();
   land = Bodies.rectangle(width / 2, initialLandY, width, 100, options);
 
   leftGround = Bodies.rectangle(
