@@ -57,7 +57,7 @@ function setup() {
       height: height,
       wireframes: false, // 와이어프레임 모드 해제
       background: "white", // 배경을 흰색으로 설정
-      pixelRatio: 0.1, // 이 부분에서 pixelRatio 값을 설정
+      pixelRatio: 0.01, // 이 부분에서 pixelRatio 값을 설정
     },
   });
 
@@ -307,7 +307,7 @@ function handleButtonClick(buttonIndex) {
         Matter.Sleeping.set(ball.body, true);
       }, 10000);
 
-      Matter.Body.setVelocity(ball.body, { x: 0, y: 15 });
+      Matter.Body.setVelocity(ball.body, { x: 0, y: 5 });
 
       wordsUsed[buttonIndex]++; // 해당 버튼의 사용된 워드 개수 증가
     }
