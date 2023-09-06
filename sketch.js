@@ -246,19 +246,19 @@ function updateBallClickable() {
   for (let i = 0; i < balls1.length; i++) {
     let ball = balls1[i];
     // 볼이 버튼의 영역을 벗어났을 때 클릭 가능하도록 플래그를 설정합니다.
-    if (ball.body.position.y > heights) {
+    if (ball.body.position.y > heights + 100) {
       ball.clickable = true;
     }
   }
   for (let i = 0; i < balls2.length; i++) {
     let ball = balls2[i];
-    if (ball.body.position.y > heights) {
+    if (ball.body.position.y > heights + 100) {
       ball.clickable = true;
     }
   }
   for (let i = 0; i < balls3.length; i++) {
     let ball = balls3[i];
-    if (ball.body.position.y > heights) {
+    if (ball.body.position.y > heights + 100) {
       ball.clickable = true;
     }
   }
