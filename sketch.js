@@ -90,15 +90,7 @@ function setup() {
   World.add(world, [rightGround, leftGround, land]);
   for (var i = 0; i < groundCount; i++) {
     var x = ((i + 1) * width) / (groundCount + 1);
-    grounds.push(
-      Bodies.rectangle(
-        x,
-        height - height / 2,
-        groundWidth,
-        windowHeight,
-        options
-      )
-    );
+    grounds.push(Bodies.rectangle(x, 10, groundWidth, windowHeight, options));
     World.add(world, grounds[i]);
   }
 
