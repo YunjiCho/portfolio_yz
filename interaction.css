@@ -2,7 +2,7 @@
   font-family: "Pretendard-Regular";
   src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
     format("woff");
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
 }
 * {
@@ -31,7 +31,7 @@ body {
   color: #3fa9f5;
   padding: 16px 50px;
   border-radius: 100px;
-  font-weight: bold;
+  font-weight: 800;
 }
 
 .buttons a:hover {
@@ -75,7 +75,6 @@ h1 {
 a {
   color: rgb(255, 255, 255);
   text-align: center;
-  font-weight: 600;
   font-size: 16px;
   background-color: #3fa9f5;
   padding: 8px 16px 8px 16px;
@@ -87,14 +86,12 @@ a {
 }
 p {
   padding-top: 2%;
-  font-weight: 500;
   font-size: 20px;
   text-align: justify;
 }
 
 .date {
   padding-top: 2%;
-  font-weight: 600;
   text-align: right;
 }
 
