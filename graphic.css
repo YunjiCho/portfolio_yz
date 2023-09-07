@@ -71,6 +71,7 @@ h1 {
   font-size: 48px;
   margin: 0 0 10px 0;
   text-align: center;
+  font-weight: 700;
 }
 .a:hover {
   background-color: #ffffff;
@@ -129,7 +130,7 @@ img {
   h1 {
     font-size: 40px;
     line-height: 120%;
-    font-weight: 600;
+    font-weight: 700;
   }
   p {
     font-size: 16px;
