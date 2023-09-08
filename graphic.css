@@ -106,6 +106,7 @@ a {
   background-color: #8c6239;
   padding: 8px 16px 8px 16px;
   border-radius: 15px;
+  font-family: "Pretendard-SemiBold";
 }
 p {
   padding-top: 2%;
@@ -149,7 +150,7 @@ img {
   h1 {
     font-size: 40px;
     line-height: 120%;
-s  }
+  }
   p {
     font-size: 16px;
   }
