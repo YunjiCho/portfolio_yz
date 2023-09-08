@@ -40,6 +40,7 @@ body {
 .buttons {
   text-align: center;
   margin-top: 20px;
+  font-family: "Pretendard-Bold";
 }
 .buttons div {
   display: inline-block; /* 버튼을 옆으로 배치 */
