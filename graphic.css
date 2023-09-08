@@ -1,13 +1,36 @@
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+  font-family: "Pretendard-Medium";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff")
+    format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pretendard-SemiBold";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff")
     format("woff");
   font-weight: 600;
   font-style: normal;
 }
-* {
-  font-family: "Pretendard-Regular";
+@font-face {
+  font-family: "Pretendard-Bold";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff")
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
 }
+@font-face {
+  font-family: "Pretendard-ExtraBold";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-ExtraBold.woff")
+    format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+
+* {
+  font-family: "Pretendard-Medium";
+}
+
 body {
   font-family: Arial, sans-serif;
   padding: 0;
@@ -31,7 +54,6 @@ body {
   color: #8c6239;
   padding: 16px 50px;
   border-radius: 100px;
-  font-weight: 800;
 }
 
 .buttons a:hover {
@@ -71,7 +93,7 @@ h1 {
   font-size: 48px;
   margin: 0 0 10px 0;
   text-align: center;
-  font-weight: 800;
+  font-family: "Pretendard-ExtraBold";
 }
 .a:hover {
   background-color: #ffffff;
@@ -127,8 +149,7 @@ img {
   h1 {
     font-size: 40px;
     line-height: 120%;
-    font-weight: 700;
-  }
+s  }
   p {
     font-size: 16px;
   }
