@@ -23,7 +23,7 @@ var bg2 = 38;
 var bg3 = 240;
 var bg4 = 96;
 let currentWordIndex = 0;
-let buttonClicked = false;
+
 const linkLists = [
   ["i1.html", "i2.html", "i3.html", "i4.html", "i5.html"],
   ["g1.html"],
@@ -42,6 +42,7 @@ let wordsUsed = [0, 0, 0, 0];
 let currentWordList = [];
 let buttonColors = []; // 버튼 색상 배열
 let hoverColors = []; // 버튼 호버 색상 배열
+let ballsCreated = [false, false, false];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -271,16 +272,18 @@ function updateBallClickable() {
   // 나머지 볼들에 대한 처리도 동일하게 수행
 }
 function handleButtonClick(buttonIndex) {
-  if (wordsUsed[buttonIndex] < wordLists[buttonIndex].length) {
+  if (!ballsCreated[buttonIndex] && wordsUsed[buttonIndex] < wordLists[buttonIndex].length) {
     currentWordList = wordLists[buttonIndex];
     let wordCount = currentWordList.length;
-    let buttonColor = buttonColors[buttonIndex]; // Use buttonColors array here
+    let buttonColor = buttonColors[buttonIndex];
 
-    if (wordCount > 0) {
-      let ballsToDrop = [];
+    // Create an array to hold all the balls for this button
+    let balls = [];
 
-      for (let i = 0; i < wordCount; i++) {
-        let word = currentWordList[i];
+    for (let i = 0; i < wordCount; i++) {
+      let word = currentWordList[i];
+
+      if (word) {
         let ball = new Ball(
           random((buttonIndex * width) / 4, ((buttonIndex + 1) * width) / 4),
           0,
@@ -288,38 +291,31 @@ function handleButtonClick(buttonIndex) {
           ballSize,
           word,
           buttonColor,
-          linkLists[buttonIndex][i], // Provide the link
+          linkLists[buttonIndex][i],
           textColors[buttonIndex]
         );
 
-        if (buttonIndex === 0) {
-          balls1.push(ball);
-        } else if (buttonIndex === 1) {
-          balls2.push(ball);
-        } else if (buttonIndex === 2) {
-          balls3.push(ball);
-        }
-        // else if (buttonIndex === 3) {
-        //   balls4.push(ball);
-        // }
-
-        ballsToDrop.push(ball);
+        balls.push(ball);
       }
-
-      // 동시에 모든 공을 떨어뜨립니다.
-      setTimeout(() => {
-        for (let i = 0; i < ballsToDrop.length; i++) {
-          Matter.Sleeping.set(ballsToDrop[i].body, true);
-        }
-        buttonClicked = false; // 모든 공이 떨어지면 버튼 클릭 여부를 초기화
-      }, 10000);
-
-      // 마우스로 클릭하여 개별로 열 수 있도록 이전 로직을 사용
-      wordsUsed[buttonIndex]++; // 해당 버튼의 사용된 워드 개수 증가
     }
+
+    // Add the balls to the appropriate array (balls1, balls2, balls3, etc.)
+    if (buttonIndex === 0) {
+      balls1 = balls;
+    } else if (buttonIndex === 1) {
+      balls2 = balls;
+    } else if (buttonIndex === 2) {
+      balls3 = balls;
+    }
+
+    // Mark that the balls for this button have been created
+    ballsCreated[buttonIndex] = true;
+
+    // You can also set sleeping and velocity for each ball if needed
+
+    wordsUsed[buttonIndex] += wordCount; // Update the number of words used
   }
 }
-
 function buttonbg() {
   fill(255);
   noStroke();
