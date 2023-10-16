@@ -23,7 +23,7 @@ var bg2 = 38;
 var bg3 = 240;
 var bg4 = 96;
 let currentWordIndex = 0;
-
+let buttonClicked = false;
 const linkLists = [
   ["i1.html", "i2.html", "i3.html", "i4.html", "i5.html"],
   ["g1.html"],
@@ -276,21 +276,22 @@ function handleButtonClick(buttonIndex) {
     let wordCount = currentWordList.length;
     let buttonColor = buttonColors[buttonIndex]; // Use buttonColors array here
 
-    let word = currentWordList[wordsUsed[buttonIndex]];
+    if (wordCount > 0) {
+      let ballsToDrop = [];
 
-    if (word) {
-      let ball = new Ball(
-        random((buttonIndex * width) / 4, ((buttonIndex + 1) * width) / 4),
-        0,
-        ballSize,
-        ballSize,
-        word,
-        buttonColor,
-        linkLists[buttonIndex][wordsUsed[buttonIndex]], // Provide the link
-        textColors[buttonIndex]
-      );
+      for (let i = 0; i < wordCount; i++) {
+        let word = currentWordList[i];
+        let ball = new Ball(
+          random((buttonIndex * width) / 4, ((buttonIndex + 1) * width) / 4),
+          0,
+          ballSize,
+          ballSize,
+          word,
+          buttonColor,
+          linkLists[buttonIndex][i], // Provide the link
+          textColors[buttonIndex]
+        );
 
-      if (wordCount > 0) {
         if (buttonIndex === 0) {
           balls1.push(ball);
         } else if (buttonIndex === 1) {
@@ -301,14 +302,19 @@ function handleButtonClick(buttonIndex) {
         // else if (buttonIndex === 3) {
         //   balls4.push(ball);
         // }
+
+        ballsToDrop.push(ball);
       }
 
+      // 동시에 모든 공을 떨어뜨립니다.
       setTimeout(() => {
-        Matter.Sleeping.set(ball.body, true);
+        for (let i = 0; i < ballsToDrop.length; i++) {
+          Matter.Sleeping.set(ballsToDrop[i].body, true);
+        }
+        buttonClicked = false; // 모든 공이 떨어지면 버튼 클릭 여부를 초기화
       }, 10000);
 
-      Matter.Body.setVelocity(ball.body, { x: 0, y: 10 });
-
+      // 마우스로 클릭하여 개별로 열 수 있도록 이전 로직을 사용
       wordsUsed[buttonIndex]++; // 해당 버튼의 사용된 워드 개수 증가
     }
   }
