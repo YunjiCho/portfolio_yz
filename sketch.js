@@ -23,7 +23,6 @@ var bg2 = 38;
 var bg3 = 240;
 var bg4 = 96;
 let currentWordIndex = 0;
-
 const linkLists = [
   ["i1.html", "i2.html", "i3.html", "i4.html", "i5.html"],
   ["g1.html"],
@@ -143,9 +142,10 @@ function draw() {
   // }
   buttonbg();
   for (let i = 0; i < 3; i++) {
-    let buttonX = (i * width) / 4;
+    let buttonX = (i * width) / 3;
     let buttonY = 5;
     let buttonText = "";
+    let letterSpacing = 10;
 
     if (i === 0) {
       buttonText = "Interaction";
@@ -160,13 +160,20 @@ function draw() {
 
     let isClicked =
       mouseX > buttonX &&
-      mouseX < buttonX + width / 4 &&
+      mouseX < buttonX + width / 3 &&
       mouseY > buttonY &&
       mouseY < buttonY + heights;
 
     let buttonColor = isClicked ? hoverColors[i] : buttonColors[i];
     let textColor = isClicked ? hovertextColors[i] : textColors[i];
-    button(buttonX, buttonY + 5, buttonText, buttonColor, textColor);
+    button(
+      buttonX,
+      buttonY + 5,
+      buttonText,
+      buttonColor,
+      textColor,
+      letterSpacing
+    );
   }
   // 뷰포트 높이에 맞게 land의 y 위치 계산
   const landY = windowHeight + 50;
@@ -184,9 +191,9 @@ function draw() {
 
 function mousePressed() {
   for (let i = 0; i < 3; i++) {
-    let buttonX = (i * width) / 4;
+    let buttonX = (i * width) / 3;
     let buttonY = -5;
-    let buttonWidth = width / 4;
+    let buttonWidth = width / 3;
     let buttonHeight = heights;
 
     if (
@@ -207,7 +214,11 @@ function mousePressed() {
       ball.isClicked() &&
       ball.body.position.y > heights
     ) {
-      openHtmlFile(ball.htmlPath);
+      // ball 클릭 시 시간 간격을 두고 떨어지게 함
+      setTimeout(() => {
+        openHtmlFile(ball.htmlPath);
+      }, currentBallIndex * 500); // 각 ball을 1초 간격으로 떨어지게 하려면 1000ms 간격을 사용
+      currentBallIndex++;
     }
   }
   for (let i = 0; i < balls2.length; i++) {
@@ -272,7 +283,10 @@ function updateBallClickable() {
   // 나머지 볼들에 대한 처리도 동일하게 수행
 }
 function handleButtonClick(buttonIndex) {
-  if (!ballsCreated[buttonIndex] && wordsUsed[buttonIndex] < wordLists[buttonIndex].length) {
+  if (
+    !ballsCreated[buttonIndex] &&
+    wordsUsed[buttonIndex] < wordLists[buttonIndex].length
+  ) {
     currentWordList = wordLists[buttonIndex];
     let wordCount = currentWordList.length;
     let buttonColor = buttonColors[buttonIndex];
@@ -285,7 +299,7 @@ function handleButtonClick(buttonIndex) {
 
       if (word) {
         let ball = new Ball(
-          random((buttonIndex * width) / 4, ((buttonIndex + 1) * width) / 4),
+          random((buttonIndex * width) / 3, ((buttonIndex + 1) * width) / 3),
           0,
           ballSize,
           ballSize,
