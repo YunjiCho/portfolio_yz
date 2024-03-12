@@ -4,7 +4,7 @@ var Engine = Matter.Engine,
   Runner = Matter.Runner,
   Bodies = Matter.Bodies,
   Composite = Matter.Composite;
-const round = 50;
+const round = 0;
 const heights = 100;
 var engine;
 var runner;
@@ -30,6 +30,13 @@ const linkLists = [
   ["i1.html", "i2.html", "i3.html", "i4.html", "i5.html"],
   // 각 버튼별로 링크를 추가합니다.
 ];
+function calculateButtonWidths() {
+  let totalLength = wordLists.reduce((acc, list) => acc + list.length, 0);
+  let buttonWidths = wordLists.map(
+    (list) => (windowWidth * list.length) / totalLength
+  );
+  return buttonWidths;
+}
 
 const wordLists = [
   ["I", "I", "2", "랜", "커"],
@@ -42,7 +49,7 @@ let currentWordList = [];
 let buttonColors = []; // 버튼 색상 배열
 let hoverColors = []; // 버튼 호버 색상 배열
 let ballsCreated = [false, false, false];
-
+let totalWordCount = 0;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   engine = Matter.Engine.create();
@@ -93,7 +100,7 @@ function setup() {
     grounds.push(Bodies.rectangle(x, 10, groundWidth, windowHeight, options));
     World.add(world, grounds[i]);
   }
-
+  updateWordLists(); // 초기 설정 시 한 번 호출
   currentWordList = wordLists[0]; // 초기에 첫 번째 리스트를 선택
   colorMode(HSB, 100, 100, 100);
   buttonColors = [
@@ -123,11 +130,31 @@ function setup() {
     color(153, 81, 70),
   ];
 }
+function calculateButtonWidths() {
+  let buttonWidths = [];
+  let totalLength = wordLists.reduce((acc, curr) => acc + curr.length, 0); // 모든 리스트의 길이 총합
+  let scaleFactor = windowWidth / totalLength; // 총 길이에 대한 윈도우 너비의 비율
 
+  for (let i = 0; i < wordLists.length; i++) {
+    // 각 리스트의 길이에 비례하여 버튼 너비 계산
+    let buttonWidth = wordLists[i].length * scaleFactor;
+    buttonWidths.push(buttonWidth);
+  }
+
+  // 버튼 너비의 총합이 windowWidth와 같도록 조정
+  let totalWidth = buttonWidths.reduce((acc, curr) => acc + curr, 0);
+  if (totalWidth !== windowWidth) {
+    // 버튼 너비들을 적절히 조정
+  }
+
+  return buttonWidths;
+}
 function draw() {
   background(255);
   fill(255);
+  console.log(totalWordCount);
 
+  // balls 배열을 그립니다.
   for (var i = 0; i < balls1.length; i++) {
     balls1[i].show();
   }
@@ -137,49 +164,63 @@ function draw() {
   for (var i = 0; i < balls3.length; i++) {
     balls3[i].show();
   }
-  // for (var i = 0; i < balls4.length; i++) {
-  //   balls4[i].show();
-  // }
+
+  // 각 버튼의 너비를 동적으로 계산하고 저장할 배열
+  let buttonWidths = calculateButtonWidths();
+  // 각 버튼의 X 위치를 계산하기 위해 누적 너비를 저장할 변수
+  let accumulatedWidth = 0;
+
+  // 배경 그리기 함수
   buttonbg();
+
+  // 각 버튼을 그립니다.
   for (let i = 0; i < 3; i++) {
-    let buttonX = (i * width) / 3;
+    let buttonX = accumulatedWidth;
     let buttonY = 5;
-    let buttonText = "";
+    let buttonWidth = buttonWidths[i]; // 계산된 버튼 너비 사용
+    let buttonText = ["Interaction", "Graphic", "CHO"][i]; // 버튼 텍스트 설정
     let letterSpacing = 10;
 
-    if (i === 0) {
-      buttonText = "Interaction";
-    } else if (i === 1) {
-      buttonText = "Graphic";
-    } else if (i === 2) {
-      buttonText = "CHO";
-    }
-    // else if (i === 3) {
-    //   buttonText = "UX";
-    // }
+    // 버튼 색상 결정
+    let buttonColor = isClicked(
+      mouseX,
+      mouseY,
+      accumulatedWidth,
+      buttonY,
+      buttonWidth,
+      heights
+    )
+      ? hoverColors[i]
+      : buttonColors[i];
+    let textColor = isClicked(
+      mouseX,
+      mouseY,
+      accumulatedWidth,
+      buttonY,
+      buttonWidth,
+      heights
+    )
+      ? hovertextColors[i]
+      : textColors[i];
 
-    let isClicked =
-      mouseX > buttonX &&
-      mouseX < buttonX + width / 3 &&
-      mouseY > buttonY &&
-      mouseY < buttonY + heights;
-
-    let buttonColor = isClicked ? hoverColors[i] : buttonColors[i];
-    let textColor = isClicked ? hovertextColors[i] : textColors[i];
+    // 버튼 그리기 함수 호출. 실제 버튼을 그리는 함수를 호출하거나, 여기에 해당하는 로직을 구현합니다.
     button(
       buttonX,
-      buttonY + 5,
+      buttonY,
+      buttonWidth,
       buttonText,
       buttonColor,
       textColor,
       letterSpacing
     );
+
+    // 다음 버튼의 X 위치를 위해 누적 너비 업데이트
+    accumulatedWidth += buttonWidth;
   }
-  // 뷰포트 높이에 맞게 land의 y 위치 계산
+
+  // 뷰포트 높이에 맞게 land의 y 위치 계산 및 그리기
   const landY = windowHeight + 50;
   Matter.Body.setPosition(land, { x: land.position.x, y: landY });
-
-  // land 그리기
   push();
   translate(land.position.x, land.position.y);
   fill(255);
@@ -189,6 +230,35 @@ function draw() {
   updateBallClickable();
 }
 
+// 클릭 여부를 결정하는 함수. mouseX, mouseY, 버튼의 x, y, 너비, 높이를 기반으로 클릭 여부를 판단합니다.
+function isClicked(
+  mouseX,
+  mouseY,
+  buttonX,
+  buttonY,
+  buttonWidth,
+  buttonHeight
+) {
+  return (
+    mouseX > buttonX &&
+    mouseX < buttonX + buttonWidth &&
+    mouseY > buttonY &&
+    mouseY < buttonY + buttonHeight
+  );
+}
+
+function updateWordLists() {
+  totalWordCount = 0; // totalWordCount 초기화
+  for (let i = 0; i < wordLists.length; i++) {
+    totalWordCount += wordLists[i].length;
+  }
+  // 필요한 경우 여기서 추가적인 업데이트 작업 수행
+}
+// 데이터를 업데이트하는 함수 예제
+function addNewWordList(newWordList) {
+  wordLists.push(newWordList); // 새로운 단어 리스트를 wordLists에 추가
+  updateWordLists(); // wordLists가 변경되었으니 totalWordCount 업데이트
+}
 function mousePressed() {
   for (let i = 0; i < 3; i++) {
     let buttonX = (i * width) / 3;
