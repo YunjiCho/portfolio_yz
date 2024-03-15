@@ -23,11 +23,12 @@ var bg2 = 38;
 var bg3 = 240;
 var bg4 = 96;
 let currentWordIndex = 0;
+let buttonStartXs = [];
+let buttonWidths = [];
 const linkLists = [
   ["i1.html", "i2.html", "i3.html", "i4.html", "i5.html"],
   ["g1.html"],
-  ["about.html"],
-  ["i1.html", "i2.html", "i3.html", "i4.html", "i5.html"],
+  ["about.html"]
   // 각 버튼별로 링크를 추가합니다.
 ];
 function calculateButtonWidths() {
@@ -41,8 +42,7 @@ function calculateButtonWidths() {
 const wordLists = [
   ["I", "I", "2", "랜", "커"],
   ["과"],
-  ["조"],
-  ["I", "I", "2", "랜", "커"],
+  ["조"]
 ];
 let wordsUsed = [0, 0, 0, 0];
 let currentWordList = [];
@@ -50,6 +50,9 @@ let buttonColors = []; // 버튼 색상 배열
 let hoverColors = []; // 버튼 호버 색상 배열
 let ballsCreated = [false, false, false];
 let totalWordCount = 0;
+
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   engine = Matter.Engine.create();
@@ -129,11 +132,16 @@ function setup() {
     color(337, 51, 100),
     color(153, 81, 70),
   ];
+ // 버튼 너비 계산
+ buttonWidths = calculateButtonWidths();
+ // 각 버튼의 시작 X 위치를 계산
+ buttonStartXs = calculateButtonStartXs(buttonWidths);
+   // 버튼 너비 계산 및 전역 변수에 할당
 }
 function calculateButtonWidths() {
   let buttonWidths = [];
   let totalLength = wordLists.reduce((acc, curr) => acc + curr.length, 0); // 모든 리스트의 길이 총합
-  let scaleFactor = windowWidth / totalLength; // 총 길이에 대한 윈도우 너비의 비율
+  let scaleFactor = (windowWidth) / totalLength; // 총 길이에 대한 윈도우 너비의 비율
 
   for (let i = 0; i < wordLists.length; i++) {
     // 각 리스트의 길이에 비례하여 버튼 너비 계산
@@ -152,7 +160,7 @@ function calculateButtonWidths() {
 function draw() {
   background(255);
   fill(255);
-  console.log(totalWordCount);
+  
 
   // balls 배열을 그립니다.
   for (var i = 0; i < balls1.length; i++) {
@@ -261,10 +269,11 @@ function addNewWordList(newWordList) {
 }
 function mousePressed() {
   for (let i = 0; i < 3; i++) {
-    let buttonX = (i * width) / 3;
+    let buttonX = buttonStartXs[i];
     let buttonY = -5;
-    let buttonWidth = width / 3;
+    let buttonWidth = buttonWidths[i];
     let buttonHeight = heights;
+    
 
     if (
       mouseX > buttonX &&
@@ -287,8 +296,8 @@ function mousePressed() {
       // ball 클릭 시 시간 간격을 두고 떨어지게 함
       setTimeout(() => {
         openHtmlFile(ball.htmlPath);
-      }, currentBallIndex * 500); // 각 ball을 1초 간격으로 떨어지게 하려면 1000ms 간격을 사용
-      currentBallIndex++;
+      }, balls1[i]* 500); // 각 ball을 1초 간격으로 떨어지게 하려면 1000ms 간격을 사용
+      balls1[i]++;
     }
   }
   for (let i = 0; i < balls2.length; i++) {
@@ -324,6 +333,19 @@ function openHtmlFile(htmlPath) {
     window.location.href = htmlPath;
   }
 }
+function calculateButtonStartXs(buttonWidths) {
+  let buttonStartXs = [0]; // 첫 번째 버튼의 시작 x 위치는 0입니다.
+  let accumulatedWidth = 0; // 누적 너비를 저장할 변수
+
+  // buttonWidths 배열을 순회하며 각 버튼의 시작 x 위치를 계산
+  for (let i = 0; i < buttonWidths.length - 1; i++) { // 마지막 버튼 너비는 더할 필요가 없으므로 -1
+    accumulatedWidth += buttonWidths[i];
+    buttonStartXs.push(accumulatedWidth);
+  }
+
+  return buttonStartXs;
+}
+
 function updateBallClickable() {
   for (let i = 0; i < balls1.length; i++) {
     let ball = balls1[i];
@@ -352,56 +374,57 @@ function updateBallClickable() {
   // }
   // 나머지 볼들에 대한 처리도 동일하게 수행
 }
-function handleButtonClick(buttonIndex) {
-  if (
-    !ballsCreated[buttonIndex] &&
-    wordsUsed[buttonIndex] < wordLists[buttonIndex].length
-  ) {
-    currentWordList = wordLists[buttonIndex];
-    let wordCount = currentWordList.length;
-    let buttonColor = buttonColors[buttonIndex];
 
-    // Create an array to hold all the balls for this button
-    let balls = [];
+
+function handleButtonClick(buttonIndex) {
+  console.log(buttonWidths[buttonIndex]); // 버튼 클릭 로그
+  // 볼 생성 시작 로그
+  if (!ballsCreated[buttonIndex]) {
+    // 해당 버튼에 대한 볼이 생성되지 않았을 경우에만 볼 생성 로직 수행
+    ballsCreated[buttonIndex] = true; // 해당 버튼에 대한 볼 생성 플래그를 true로 설정
+
+    let wordCount = wordLists[buttonIndex].length; // 현재 버튼에 매핑된 단어 수
+    let buttonColor = buttonColors[buttonIndex]; // 현재 버튼에 매핑된 색상
 
     for (let i = 0; i < wordCount; i++) {
-      let word = currentWordList[i];
+      let startX = buttonStartXs[buttonIndex]; // 현재 버튼의 시작 X 위치
+      let endX = startX + buttonWidths[buttonIndex]; // 현재 버튼의 끝 X 위치
+      //let ballX = random(startX, endX); // 현재 버튼의 너비 안에서 랜덤하게 X 좌표를 결정
+      //let ballsStartX = [];
 
-      if (word) {
-        let ball = new Ball(
-          random((buttonIndex * width) / 3, ((buttonIndex + 1) * width) / 3),
-          0,
-          ballSize,
-          ballSize,
-          word,
-          buttonColor,
-          linkLists[buttonIndex][i],
-          textColors[buttonIndex]
-        );
+      let startballX = buttonWidths[buttonIndex] / wordCount*i+buttonStartXs[buttonIndex];
+      let endballX = buttonWidths[buttonIndex] / wordCount*(i+1)+buttonStartXs[buttonIndex];
+      let ballX = random(startballX,endballX);
 
-        balls.push(ball);
+      let word = wordLists[buttonIndex][i];
+
+      let ball = new Ball(
+        ballX,
+        0, // 볼의 초기 Y 좌표는 여기서 설정 (예: 화면 상단에서 시작)
+        ballSize,
+        ballSize,
+        word,
+        buttonColor,
+        linkLists[buttonIndex][i],
+        textColors[buttonIndex]
+      );
+
+      // 볼을 해당하는 배열에 추가
+      if (buttonIndex === 0) {
+        balls1.push(ball);
+      } else if (buttonIndex === 1) {
+        balls2.push(ball);
+      } else if (buttonIndex === 2) {
+        balls3.push(ball);
       }
     }
-
-    // Add the balls to the appropriate array (balls1, balls2, balls3, etc.)
-    if (buttonIndex === 0) {
-      balls1 = balls;
-    } else if (buttonIndex === 1) {
-      balls2 = balls;
-    } else if (buttonIndex === 2) {
-      balls3 = balls;
-    }
-
-    // Mark that the balls for this button have been created
-    ballsCreated[buttonIndex] = true;
-
-    // You can also set sleeping and velocity for each ball if needed
-
-    wordsUsed[buttonIndex] += wordCount; // Update the number of words used
-  }
 }
+}
+
+
 function buttonbg() {
   fill(255);
   noStroke();
   rect(0, 0 - heights / 3, width + 100, heights);
 }
+
