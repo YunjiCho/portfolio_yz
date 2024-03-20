@@ -25,8 +25,9 @@ class Ball {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
-    fill(0, 0, 89); // Use this.col for filling
-    noStroke();
+    fill(255); // Use this.col for filling
+    strokeWeight(6);
+    stroke(this.textColor);
     rect(0, 0, this.w, this.h, 100, 100, 100, 100);
     strokeWeight(6);
     stroke(this.textColor);
