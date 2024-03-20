@@ -1,8 +1,8 @@
 class Ball {
   constructor(x, y, w, h, label, col, htmlPath, textColor) {
     var options = {
-      friction: 0.5,
-      restitution: 0.9,
+      friction: 0.6,
+      restitution: 0.95  ,
     };
 
     this.body = Bodies.rectangle(x, y, w, h, options);
